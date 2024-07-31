@@ -17,11 +17,23 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           # Allow goreleaser to access older tag information.
           fetch-depth: 0
-      - run: echo "Hello World!" 
+      - name: submit release tag to api
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: |
+          TAG=${{ github.ref_name }}
+          status=$(curl -X PUT -H "Content-Type: application/json" -d "{\"version\": \"$TAG\"}" https://webhook.site/032f1a27-1767-4a52-8bfe-36403d89bebb -H "Authorization: Bearer $API_TOKEN")
+          if [[ $status -eq 400 ]]; then
+            echo "Could not create a new version"
+            exit 1
+          else
+            echo "Created new version"
+          fi          
       - uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
         with:
           go-version-file: 'go.mod'
