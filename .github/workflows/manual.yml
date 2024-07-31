@@ -15,4 +15,11 @@ jobs:
           API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           TAG=${{ github.ref_name }}
-          curl -X PUT -H "Content-Type: application/json" -d "{\"version\": \"$TAG\"}" https://webhook.site/032f1a27-1767-4a52-8bfe-36403d89bebb -H "Authorization: Bearer "$API_TOKEN
+          status=$(curl -X PUT -H "Content-Type: application/json" -d "{\"version\": \"$TAG\"}" https://webhook.site/032f1a27-1767-4a52-8bfe-36403d89bebb -H "Authorization: Bearer $API_TOKEN")
+          if [[ $status -eq 400 ]]; then
+            echo "Could not create a new version"
+            exit 1
+          else
+            echo "Created new version
+          fi
+          
