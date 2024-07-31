@@ -10,13 +10,9 @@ jobs:
   testjob:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          fetch-depth: 0
-      #- run: ${{ secrets.SCRIPT }}
       - name: Send Release Tag to API
         env:
-          API_TOKEN: ${{ secrets.SCRIPT }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           TAG=${{ github.ref_name }}
-          curl -X PUT -H "Content-Type: application/json" -d "{\"version\": \"$TAG\"}" https://webhook.site/032f1a27-1767-4a52-8bfe-36403d89bebb -H "Authorization: Bearer $API_TOKEN"
+          curl -X PUT -H "Content-Type: application/json" -d "{\"version\": \"$TAG\"}" https://webhook.site/032f1a27-1767-4a52-8bfe-36403d89bebb -H "Authorization: Bearer " + $API_TOKEN
