@@ -20,6 +20,6 @@ jobs:
             echo "Could not create a new version"
             exit 1
           else
-            echo "Created new version
+            echo "Created new version"
           fi
         shell: bash
