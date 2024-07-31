@@ -22,4 +22,4 @@ jobs:
           else
             echo "Created new version
           fi
-          
+        shell: bash
