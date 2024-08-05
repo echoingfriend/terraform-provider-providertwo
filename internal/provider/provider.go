@@ -7,7 +7,6 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/function"
